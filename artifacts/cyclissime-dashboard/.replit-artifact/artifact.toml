@@ -1,0 +1,34 @@
+kind = "web"
+previewPath = "/"
+title = "Cyclissime Dashboard"
+description = "Application Cyclissime présentant une collection de vélos et un tableau de bord de statistiques de ventes alimenté par un fichier CSV."
+version = "1.0.0"
+id = "artifacts/cyclissime-dashboard"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 5000
+
+[services.development]
+run = "cd ../.. && STREAMLIT_BROWSER_GATHER_USAGE_STATS=false streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true --server.enableCORS=false --server.enableWebsocketCompression=false"
+
+[services.production]
+
+[services.production.build]
+args = ["python", "-m", "pip", "install", "-r", "requirements.txt"]
+
+[services.production.run]
+args = ["streamlit", "run", "app.py", "--server.port", "5000", "--server.address", "0.0.0.0", "--server.headless", "true", "--server.enableCORS", "false", "--server.enableWebsocketCompression", "false"]
+
+[services.production.run.env]
+PORT = "5000"
+STREAMLIT_BROWSER_GATHER_USAGE_STATS = "false"
+
+[services.production.health.startup]
+path = "/"
+
+[services.env]
+PORT = "5000"
+BASE_PATH = "/"

@@ -1,0 +1,2 @@
+- [Streamlit launch prompt](streamlit-launch.md) — disable the first-run usage-statistics prompt in managed workflows.
+- [Streamlit publishing](streamlit-publishing.md) — artifact-mode workspaces publish declared artifacts, not a root-level app.py.
